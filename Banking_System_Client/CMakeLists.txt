@@ -15,7 +15,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Network)
 add_executable(Banking_System_Client
   main.cpp
   client.h client.cpp
-  manager_client.h manager_client.cpp
+
 )
 target_link_libraries(Banking_System_Client Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Network)
 
