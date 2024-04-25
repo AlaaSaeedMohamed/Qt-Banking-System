@@ -25,6 +25,7 @@ protected:
 private slots:
     void newConnection() {
         QTcpSocket *socket = server.nextPendingConnection();
+        //QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
         connect(socket, &QTcpSocket::readyRead, this, &Server::readRequest);
         connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
         connect(socket, &QTcpSocket::disconnected, this, [=]() { handleLogout(socket); });
@@ -33,6 +34,7 @@ private slots:
     void handleLogout(QTcpSocket *socket);
     bool isLoggedIn(QTcpSocket *socket);
     void readRequest();
+    void handleGetAccountNumber(QTcpSocket *socket);
 
 private:
     void handleGetRequest(QTcpSocket *clientSocket) {
@@ -65,8 +67,11 @@ private:
 
 private:
     QTcpServer server;
-    QMap<QTcpSocket*, QString> loggedInClients; // Map of logged-in clients with their session IDs
-    bool login(QString username, QString password, QJsonArray usersArray);
+    QMap<QTcpSocket*, QString> loggedInClients_Roles; // Map of logged-in clients with their roles
+    QMap<QTcpSocket*, QString> loggedInClients_Names; // Map of logged-in clients with their usernames
+    QJsonObject userDatabase; // JSON object representing the user database
+
+    void handleLogin(QTcpSocket *socket, const QString &username, const QString &password);
 };
 
 #endif // SERVER_H
