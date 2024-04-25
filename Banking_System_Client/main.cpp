@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     //Client client;
     client.connectToHost("192.168.1.14",22);
 
-    client.login("user3", "abc123");
+    client.login("user1", "password123");
     //m_client.login("user3", "abc123");
     //m_client2.login("user3", "abc123");
     // m_client.get("http://192.168.1.14:22/gett");
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 
     QObject::connect(&client, &Client::loginCompleted, [&client]() {
         // After the POST request is completed, send the GET request
-        client.get("http://192.168.1.14:22/gett");
+        client.get("http://192.168.1.14:22/accountNumber");
     });
 
     return a.exec();
