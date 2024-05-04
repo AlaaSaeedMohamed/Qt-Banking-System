@@ -35,23 +35,17 @@ private slots:
     bool isLoggedIn(QTcpSocket *socket);
     void readRequest();
     void handleGetAccountNumber(QTcpSocket *socket);
-
+    void handleGetAccountNumberAdmin(QTcpSocket *socket, QString username);
+    void handleGetBalance(QTcpSocket *socket);
+    void getBankDB();
+    void createUser();
+    void handleUpdateUser(QTcpSocket *socket,const QByteArray &requestData);
+    void handleDeleteUser(QTcpSocket *socket,const QByteArray &requestData);
+    void parseJSONFromRequest(const QByteArray &requestData, QJsonObject &jsonObject);
+    void saveUserDatabaseToFile();
 private:
-    void handleGetRequest(QTcpSocket *clientSocket) {
-        // Define your endpoint logic for GET requests here
-        // For example, you can send back a JSON response
-        QJsonObject jsonResponse;
-        jsonResponse["message"] = "Hello from GET endpoint!";
-        sendJsonResponse(clientSocket, jsonResponse);
-    }
-
-    void handlePostRequest(QTcpSocket *clientSocket) {
-        // Define your endpoint logic for POST requests here
-        // For example, you can parse the POST data and send back a response
-        // For simplicity, let's echo back the POST data
-        QByteArray postData = clientSocket->readAll();
-        sendResponse(clientSocket, postData);
-    }
+    void handleGetRequest(QTcpSocket *socket, const QByteArray &requestData);
+    void handlePostRequest(QTcpSocket *socket, const QByteArray &requestData);
 
     void sendJsonResponse(QTcpSocket *clientSocket, const QJsonObject &jsonObject) {
         QJsonDocument jsonResponse(jsonObject);
@@ -61,8 +55,8 @@ private:
     void sendResponse(QTcpSocket *clientSocket, const QByteArray &data) {
         clientSocket->write(data);
         clientSocket->flush();
-        //clientSocket->waitForBytesWritten();
-        clientSocket->disconnectFromHost();
+        clientSocket->waitForBytesWritten();
+        //clientSocket->disconnectFromHost();
     }
 
 private:
@@ -70,6 +64,7 @@ private:
     QMap<QTcpSocket*, QString> loggedInClients_Roles; // Map of logged-in clients with their roles
     QMap<QTcpSocket*, QString> loggedInClients_Names; // Map of logged-in clients with their usernames
     QJsonObject userDatabase; // JSON object representing the user database
+    QJsonDocument JsonDoc;
 
     void handleLogin(QTcpSocket *socket, const QString &username, const QString &password);
 };
