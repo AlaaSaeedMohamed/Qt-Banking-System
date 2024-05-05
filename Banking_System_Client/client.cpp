@@ -8,7 +8,7 @@ Client::Client() {
     connect(socket,&QAbstractSocket::hostFound,this,&Client::hostFound);
     connect(socket,&QAbstractSocket::errorOccurred,this,&Client::errorOccurred);
     connect(socket,&QAbstractSocket::stateChanged,this,&Client::stateChanged);
-    //connect(socket,&QAbstractSocket::readyRead,this,&Client::readyRead);
+    connect(socket, &QTcpSocket::readyRead, this, &Client::readyRead);
 
 }
 
@@ -66,6 +66,7 @@ void Client::disconnect()
 
 void Client::readyRead()
 {
+
     qInfo() << "Reading Data from Server";
     qInfo() << "Data: " << socket->readAll();
 }
@@ -74,56 +75,100 @@ void Client::readyRead()
 void Client::get(QString path)
 {
 
-    //manager->get(QNetworkRequest(QUrl(path)));
-
     QString getRequest = "GET " + path + " HTTP/1.1\r\nHost: 192.168.1.14:22\r\n\r\n";
     socket->write(getRequest.toUtf8());
 
-    connect(socket, &QTcpSocket::readyRead, this, &Client::handleGetResponse);
+    socket->waitForReadyRead();
 
 }
 
-void Client::handleGetResponse() {
-    // Read GET response
-    QByteArray responseData = socket->readAll();
-    qDebug() << "GET response:" << responseData;
+void Client::getAccountNumber_Admin(QString username)
+{
+    QJsonObject obj;
+    obj["username"] = username;
+    QJsonDocument doc(obj);
+    QByteArray data = doc.toJson();
+    post("http://192.168.1.14:22/accountNumberAdmin", data);
+}
 
-    // Disconnect from readyRead signal to avoid processing GET response again
-    QObject::disconnect(socket, &QTcpSocket::readyRead, this, &Client::handleGetResponse);
+
+void Client::getAccountNumber()
+{
+    get("http://192.168.1.14:22/accountNumber");
+}
+
+void Client::getAccountBalance()
+{
+    get("http://192.168.1.14:22/accountBalance");
+}
+
+void Client::viewBankDatabase()
+{
+    get("http://192.168.1.14:22/BankDB");
+}
+
+
+void Client::createUser(QString userData)
+{
+    QString path = "http://192.168.1.14:22/createUser";
+
+    QJsonParseError error;
+    QJsonDocument doc = QJsonDocument::fromJson(userData.toUtf8(), &error);
+
+    if (doc.isNull()) {
+        qDebug() << "Failed to parse JSON:" << error.errorString();
+        return;
+    }
+
+    post(path, doc.toJson());
+
+}
+
+
+void Client::updateUser(QString accountNumber, QString userData)
+{
+    QString path = "http://192.168.1.14:22/updateUser";
+
+    QJsonParseError error;
+    QJsonDocument doc = QJsonDocument::fromJson(userData.toUtf8(), &error);
+    if (doc.isNull()) {
+        qDebug() << "Failed to parse JSON:" << error.errorString();
+        return;
+    }
+
+    QJsonObject jsonObject = doc.object();
+
+    // Merge the QJsonObjects
+    QJsonObject mergedObject = jsonObject;
+    mergedObject.insert("accountnumber", accountNumber);
+
+
+    // Convert the merged QJsonObject back to a JSON string
+    QJsonDocument mergedDoc(mergedObject);
+    qDebug() << mergedDoc;
+
+    put(path, mergedDoc.toJson());
+
+}
+
+
+void Client::deleteUser(QString accountNumber)
+{
+    QString path = "http://192.168.1.14:22/deleteUser";
+
+    QJsonObject jsonObject;
+    jsonObject.insert("accountnumber", accountNumber);
+
+    QJsonDocument doc(jsonObject);
+
+    deleteReq(path, doc.toJson());
+
 }
 
 
 void Client::post(QString path, QByteArray data)
 {
-    QUrl url = QUrl(path);
-    QNetworkRequest request(path);
 
-    // request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-    // QNetworkReply *reply = manager->post(request, data);
-
-    // connect(reply, &QNetworkReply::readyRead, this, &Client::readyRead);
-
-}
-
-void Client::login(QString username, QString password)
-{
-    QString path = "http://192.168.1.14:22/login";
-
-    //socket->connectToHost("192.168.1.14", 22);
-    // QNetworkRequest request(path);
-
-    // request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-    QJsonObject obj;
-    obj["username"] = username;
-    obj["password"] = password;
-    QJsonDocument doc(obj);
-    QByteArray data = doc.toJson();
-
-    // QNetworkReply *reply = manager->post(request, data);
-
-    //const char* postData = "key1=value1&key2=value2";
     QString request = "POST "+ path + "HTTP/1.1\r\n";
     request += "Host: 192.168.1.14:22\r\n";
     request += "Content-Type: application/application/json\r\n";
@@ -131,39 +176,50 @@ void Client::login(QString username, QString password)
     request += "\r\n";
     request += data;
 
-    qDebug() << request;
-
     socket->write(request.toUtf8());
-    connect(socket, &QTcpSocket::readyRead, this, &Client::handleLoginResponse);
-    // connect(reply, &QNetworkReply::readyRead, this, &Manager_Client::handleLoginResponse);
-    // connect(reply, &QNetworkReply::readyRead, this, &Manager_Client::readyRead);
 
+
+    socket->waitForReadyRead();
 }
 
-void Client::handleLoginResponse() {
-    // QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
-    // if (reply->error() == QNetworkReply::NoError) {
-    //     qDebug() << "bla";
-    //     emit loginCompleted(); // Emit signal indicating login is completed
-    // } else {
-    //     // Login failed
-    //     qDebug() << "Login failed:" << reply->errorString();
-    // }
+void Client::login(QString username, QString password)
+{
+    QString path = "http://192.168.1.14:22/login";
 
-    QByteArray responseData = socket->readAll();
-    qDebug() << "Login response:" << responseData;
+    QJsonObject obj;
+    obj["username"] = username;
+    obj["password"] = password;
+    QJsonDocument doc(obj);
+    QByteArray data = doc.toJson();
 
-    emit loginCompleted();
-    // Disconnect from readyRead signal to avoid processing login response again
-    QObject::disconnect(socket, &QTcpSocket::readyRead, this, &Client::handleLoginResponse);
-    //reply->deleteLater();
+    post(path, data);
+
 }
 
 void Client::put(QString path, QByteArray data)
 {
-    QNetworkRequest request(path);
+    QString request = "PUT "+ path + "HTTP/1.1\r\n";
+    request += "Host: 192.168.1.14:22\r\n";
+    request += "Content-Type: application/application/json\r\n";
+    request += "Content-Length: " + std::to_string(strlen(data)) + "\r\n";
+    request += "\r\n";
+    request += data;
 
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    socket->write(request.toUtf8());
 
-    //manager->put(request, data);
+    socket->waitForReadyRead();
+}
+
+void Client::deleteReq(QString path, QByteArray data)
+{
+    QString request = "DELETE "+ path + "HTTP/1.1\r\n";
+    request += "Host: 192.168.1.14:22\r\n";
+    request += "Content-Type: application/application/json\r\n";
+    request += "Content-Length: " + std::to_string(strlen(data)) + "\r\n";
+    request += "\r\n";
+    request += data;
+
+    socket->write(request.toUtf8());
+    socket->waitForReadyRead();
+
 }
