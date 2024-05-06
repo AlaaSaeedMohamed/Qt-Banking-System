@@ -26,6 +26,7 @@ private slots:
     void newConnection() {
         QTcpSocket *socket = server.nextPendingConnection();
         //QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
+        qDebug() << socket;
         connect(socket, &QTcpSocket::readyRead, this, &Server::readRequest);
         connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
         connect(socket, &QTcpSocket::disconnected, this, [=]() { handleLogout(socket); });
@@ -37,6 +38,11 @@ private slots:
     void handleGetAccountNumber(QTcpSocket *socket);
     void handleGetAccountNumberAdmin(QTcpSocket *socket, QString username);
     void handleGetBalance(QTcpSocket *socket);
+    void handleGetBalanceAdmin(QTcpSocket *socket, QString accountNum);
+    void handleGetTransactionHisory(QTcpSocket *socket, int count);
+    void handleMakeTransaction(QTcpSocket *socket, int amount);
+    void handleGetTransactionHisoryAdmin(QTcpSocket *socket, QString accountNum, int count);
+    void handleTransfer(QTcpSocket *socket, QString toAcc, int amount);
     void getBankDB();
     void createUser();
     void handleUpdateUser(QTcpSocket *socket,const QByteArray &requestData);

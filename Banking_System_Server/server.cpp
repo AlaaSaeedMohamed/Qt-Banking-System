@@ -46,9 +46,6 @@ void Server::readRequest()
         // Parse the request
         QString requestString(requestData);
         if (requestString.startsWith("POST")) {
-            qDebug() << "Received a POST request";
-
-            qDebug() << socket;
             handlePostRequest(socket, requestData);
         }
         else if(requestString.startsWith("GET"))
@@ -148,6 +145,61 @@ void Server::handlePostRequest(QTcpSocket *socket, const QByteArray &requestData
                 if(loggedInClients_Roles.find(socket).value() == "admin")
                 {
                     handleGetAccountNumberAdmin(socket,jsonObject["username"].toString());
+                }
+
+                else{
+                    QByteArray responseData = "Not Authorized";
+                    sendResponse(socket, responseData);
+                }
+            }
+            else if (requestData.contains("accountBalanceAdmin")) {
+                if(loggedInClients_Roles.find(socket).value() == "admin")
+                {
+                    handleGetBalanceAdmin(socket,jsonObject["accountnumber"].toString());
+                }
+
+                else{
+                    QByteArray responseData = "Not Authorized";
+                    sendResponse(socket, responseData);
+                }
+            }
+            else if (requestData.contains("TransactionHistory")) {
+                if(loggedInClients_Roles.find(socket).value() == "user")
+                {
+                    handleGetTransactionHisory(socket,jsonObject["count"].toInt());
+                }
+
+                else{
+                    QByteArray responseData = "Not Authorized";
+                    sendResponse(socket, responseData);
+                }
+            }
+            else if (requestData.contains("THAdmin")) {
+                if(loggedInClients_Roles.find(socket).value() == "admin")
+                {
+                    handleGetTransactionHisoryAdmin(socket, jsonObject["accountnumber"].toString() ,jsonObject["count"].toInt());
+                }
+
+                else{
+                    QByteArray responseData = "Not Authorized";
+                    sendResponse(socket, responseData);
+                }
+            }
+            else if (requestData.contains("makeT")) {
+                if(loggedInClients_Roles.find(socket).value() == "user")
+                {
+                    handleMakeTransaction(socket, jsonObject["amount"].toInt());
+                }
+
+                else{
+                    QByteArray responseData = "Not Authorized";
+                    sendResponse(socket, responseData);
+                }
+            }
+            else if (requestData.contains("Transfer")) {
+                if(loggedInClients_Roles.find(socket).value() == "user")
+                {
+                    handleTransfer(socket,jsonObject["toaccountnumber"].toString(), jsonObject["amount"].toInt());
                 }
 
                 else{
@@ -399,10 +451,10 @@ void Server::handleGetBalance(QTcpSocket *socket) {
 
         if (accountObject.value("accountnumber").toString() == accountNum) {
 
-            QString Balance = accountObject.value("balance").toString();
-            qDebug() << QByteArray::number(Balance.toInt());
+            int Balance = accountObject.value("balance").toInt();
+            qDebug() << QString::number(Balance);
             QByteArray responseData = "Balance: " ;
-            responseData += QByteArray::number(Balance.toInt()) ;
+            responseData += QByteArray::number(Balance) ;
             sendResponse(socket, responseData);
             return;
 
@@ -410,10 +462,194 @@ void Server::handleGetBalance(QTcpSocket *socket) {
 
     }
 
-    QByteArray responseData = "Username Not found";
+    QByteArray responseData = "account number Not found";
     sendResponse(socket, responseData);
 
 }
+
+void Server::handleGetTransactionHisory(QTcpSocket *socket, int count)
+{
+    int c = 0;
+    QString username = loggedInClients_Names.find(socket).value();
+    QJsonArray users = userDatabase.value("users").toArray();
+    QString accountNum;
+    for (const QJsonValue &userValue : users) {
+
+            QJsonObject userObject = userValue.toObject();
+
+            if (userObject.value("username").toString() == username) {
+                accountNum = userObject.value("accountnumber").toString();
+            }
+
+    }
+
+    QJsonArray transactions = userDatabase.value("transactions").toArray();
+    QJsonArray arr ;
+    for (int i = transactions.size() - 1; i >= 0; --i) {
+        if(c < count)
+        {
+            QJsonObject transactionObject = transactions.at(i).toObject();
+
+            if (transactionObject.value("accountnumber").toString() == accountNum) {
+
+
+                arr.append(transactionObject);
+                c++;
+
+            }
+        }
+
+    }
+    if(c == 0)
+    {
+        QByteArray responseData = "No Transactions";
+        sendResponse(socket, responseData);
+        return;
+    }
+
+    QJsonDocument doc(arr);
+    QByteArray responseData = "Transaction History: " ;
+    responseData += doc.toJson() ;
+    sendResponse(socket, responseData);
+
+}
+
+
+void Server::handleMakeTransaction(QTcpSocket *socket, int amount)
+{
+    QString username = loggedInClients_Names.find(socket).value();
+    QJsonArray users = userDatabase.value("users").toArray();
+    QJsonArray accounts = userDatabase.value("accounts").toArray();
+    QString accountNum;
+    for (const QJsonValue &userValue : users) {
+
+        QJsonObject userObject = userValue.toObject();
+
+        if (userObject.value("username").toString() == username) {
+            accountNum = userObject.value("accountnumber").toString();
+            qDebug() << accountNum;
+        }
+
+    }
+
+    for (int i = 0; i < accounts.size(); ++i) {
+        QJsonObject accountObject = accounts[i].toObject();
+        if (accountObject.value("accountnumber").toString() == accountNum) {
+
+            if((accountObject["balance"].toInt() + amount) < 0)
+            {
+                QByteArray responseData = "NNot enough Balance";
+                sendResponse(socket, responseData);
+                return;
+            }
+
+            int balance = accountObject["balance"].toInt();
+            balance += amount;
+            accountObject["balance"] = balance;
+
+            qDebug() << balance;
+
+            // Update the user record in the JSON array
+            accounts[i] = accountObject;
+            userDatabase["accounts"] = accounts;
+
+
+
+        }
+    }
+
+    QDate currentDate = QDate::currentDate();
+
+    QJsonArray transactions = userDatabase.value("transactions").toArray();
+
+    QJsonObject  transaction;
+    transaction.insert("accountnumber",accountNum);
+    transaction.insert("amount",amount);
+    transaction.insert("date",currentDate.toString(Qt::ISODate));
+    transactions.append(transaction);
+    userDatabase["transactions"] = transactions;
+
+    saveUserDatabaseToFile();
+
+    QByteArray responseData = "Transaction Made Successfully";
+    sendResponse(socket, responseData);
+
+}
+
+void Server::handleTransfer(QTcpSocket *socket, QString toAcc, int amount)
+{
+
+    if(amount < 0)
+    {
+        QByteArray responseData = "Amount must be positive";
+        sendResponse(socket, responseData);
+        return;
+    }
+
+    QString username = loggedInClients_Names.find(socket).value();
+    QJsonArray users = userDatabase.value("users").toArray();
+    QJsonArray accounts = userDatabase.value("accounts").toArray();
+    QString accountNum;
+    for (const QJsonValue &userValue : users) {
+
+        QJsonObject userObject = userValue.toObject();
+
+        if (userObject.value("username").toString() == username) {
+            accountNum = userObject.value("accountnumber").toString();
+        }
+
+    }
+
+    for (int i = 0; i < accounts.size(); ++i) {
+        QJsonObject accountObject = accounts[i].toObject();
+        if (accountObject.value("accountnumber").toString() == accountNum) {
+
+            if((accountObject["balance"].toInt() - amount) < 0)
+            {
+                QByteArray responseData = "NNot enough Balance";
+                sendResponse(socket, responseData);
+                return;
+            }
+
+            int fromBalance = accountObject["balance"].toInt();
+            fromBalance -= amount;
+            accountObject["balance"] = fromBalance;
+
+            // Update the user record in the JSON array
+            accounts[i] = accountObject;
+            userDatabase["accounts"] = accounts;
+
+        }
+        if (accountObject.value("accountnumber").toString() == toAcc) {
+
+            int toBalance = accountObject["balance"].toInt();
+            toBalance += amount;
+            accountObject["balance"] = toBalance;
+
+            // Update the user record in the JSON array
+            accounts[i] = accountObject;
+            userDatabase["accounts"] = accounts;
+
+        }
+    }
+  /*
+    QDate currentDate = QDate::currentDate();
+
+    QJsonArray transactions = userDatabase.value("transactions").toArray();
+
+    QJsonObject  transaction;
+    transaction.insert("accountnumber",accountNum);
+    transaction.insert("amount",amount);
+    transaction.insert("date",currentDate.toString(Qt::ISODate));
+    transactions.append(transaction);
+    userDatabase["transactions"] = transactions;
+    */
+    saveUserDatabaseToFile();
+
+    QByteArray responseData = "Transferred Successfully";
+    sendResponse(socket, responseData);
+}
+
 
 void Server::handleGetAccountNumberAdmin(QTcpSocket *socket, QString username)
 {
@@ -435,6 +671,64 @@ void Server::handleGetAccountNumberAdmin(QTcpSocket *socket, QString username)
     }
 
     QByteArray responseData = "Username Not found";
+    sendResponse(socket, responseData);
+}
+
+
+void Server::handleGetBalanceAdmin(QTcpSocket *socket, QString accountNum)
+{
+    QJsonArray accounts = userDatabase.value("accounts").toArray();
+    for (const QJsonValue &accountValue : accounts) {
+
+        QJsonObject accountObject = accountValue.toObject();
+
+        if (accountObject.value("accountnumber").toString() == accountNum) {
+
+            int Balance = accountObject.value("balance").toInt();
+            qDebug() << QString::number(Balance);
+            QByteArray responseData = "Balance: " ;
+            responseData += QByteArray::number(Balance) ;
+            sendResponse(socket, responseData);
+            return;
+
+        }
+
+    }
+
+    QByteArray responseData = "account number Not found";
+    sendResponse(socket, responseData);
+}
+
+void Server::handleGetTransactionHisoryAdmin(QTcpSocket *socket, QString accountNum, int count)
+{
+    int c = 0;
+    QJsonArray arr ;
+    QJsonArray transactions = userDatabase.value("transactions").toArray();
+    for (int i = transactions.size() - 1; i >= 0; --i) {
+        if(c < count)
+        {
+            QJsonObject transactionObject = transactions.at(i).toObject();
+
+            if (transactionObject.value("accountnumber").toString() == accountNum) {
+
+
+                arr.append(transactionObject);
+                c++;
+
+            }
+        }
+
+    }
+    if(c == 0)
+    {
+        QByteArray responseData = "No Transactions";
+        sendResponse(socket, responseData);
+        return;
+    }
+
+    QJsonDocument doc(arr);
+    QByteArray responseData = "Transaction History: " ;
+    responseData += doc.toJson() ;
     sendResponse(socket, responseData);
 }
 
