@@ -247,6 +247,10 @@ void Server::handleGetRequest(QTcpSocket *socket, const QByteArray &requestData)
                 file.close();
                 sendResponse(socket, data);
             }
+            else{
+                QByteArray responseData = "Not Authorized";
+                sendResponse(socket, responseData);
+            }
 
         }
         else if(requestData.contains("accountBalance"))
@@ -387,6 +391,12 @@ void Server::handleLogin(QTcpSocket *socket, const QString &username, const QStr
             // Successful login
             loggedInClients_Roles.insert(socket, userObject.value("role").toString());
             loggedInClients_Names.insert(socket, userObject.value("username").toString());
+            if(userObject.value("role").toString() == "admin")
+            {
+                QByteArray responseData = "Hello Admin!";
+                sendResponse(socket, responseData);
+                return;
+            }
             QByteArray responseData = "Login successfulll.";
             sendResponse(socket, responseData);
             qDebug() << "Login successfulll. User:" << username;
