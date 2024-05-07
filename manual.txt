@@ -1,0 +1,17 @@
+login <username> <password>
+
+Admin commands:
+accountnumber <username>
+accountbalance <username>
+transactions <accountnumber> <count>
+bankDB 
+createUser <username> <password> <accountnumber>
+updateUser <accountnumber> <data>
+deleteUser <accountnumber>
+
+User commands:
+accountnumber
+accountbalance
+transactions <count>
+makeTransaction <amount>
+transfer <toaccountnumber> <amount>

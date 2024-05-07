@@ -8,10 +8,12 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QEventLoop>
+#include <QMutex>
 class Client : public QObject
 {
     Q_OBJECT
 public:
+    QString role = "";
     Client();
     ~Client();
 
@@ -26,7 +28,12 @@ public slots:
     void login(QString username, QString password);
     void getAccountNumber();
     void getAccountBalance();
+    void getTransactionHistory(int count);
     void getAccountNumber_Admin(QString username);
+    void getAccountBalance_Admin(QString accountNumber);
+    void getTransactionHistory_Admin(QString accountNum, int count);
+    void makeTransaction(int amount);
+    void transferAmount(QString toAccNum, int amount);
     void viewBankDatabase();
     void createUser(QString userData);
     void updateUser(QString accountNumber, QString userData);
@@ -42,6 +49,7 @@ private slots:
 
 private:
     QTcpSocket *socket;
+    QMutex m;
 };
 
 #endif // CLIENT_H

@@ -74,10 +74,8 @@ void Client::readyRead()
 
 void Client::get(QString path)
 {
-
     QString getRequest = "GET " + path + " HTTP/1.1\r\nHost: 192.168.1.14:22\r\n\r\n";
     socket->write(getRequest.toUtf8());
-
     socket->waitForReadyRead();
 
 }
@@ -91,6 +89,33 @@ void Client::getAccountNumber_Admin(QString username)
     post("http://192.168.1.14:22/accountNumberAdmin", data);
 }
 
+void Client::getAccountBalance_Admin(QString accountNumber)
+{
+    QJsonObject obj;
+    obj["accountnumber"] = accountNumber;
+    QJsonDocument doc(obj);
+    QByteArray data = doc.toJson();
+    post("http://192.168.1.14:22/accountBalanceAdmin", data);
+}
+
+void Client::getTransactionHistory_Admin(QString accountnumber, int count)
+{
+    QJsonObject obj;
+    obj["accountnumber"] = accountnumber;
+    obj["count"] = count;
+    QJsonDocument doc(obj);
+    QByteArray data = doc.toJson();
+    post("http://192.168.1.14:22/THAdmin", data);
+}
+
+void Client::makeTransaction(int amount)
+{
+    QJsonObject obj;
+    obj["amount"] = amount;
+    QJsonDocument doc(obj);
+    QByteArray data = doc.toJson();
+    post("http://192.168.1.14:22/makeT", data);
+}
 
 void Client::getAccountNumber()
 {
@@ -102,10 +127,29 @@ void Client::getAccountBalance()
     get("http://192.168.1.14:22/accountBalance");
 }
 
+void Client::getTransactionHistory(int count)
+{
+    QJsonObject obj;
+    obj["count"] = count;
+    QJsonDocument doc(obj);
+    QByteArray data = doc.toJson();
+    post("http://192.168.1.14:22/TransactionHistory", data);
+}
 void Client::viewBankDatabase()
 {
     get("http://192.168.1.14:22/BankDB");
 }
+
+void Client::transferAmount(QString toAccNum, int amount)
+{
+    QJsonObject obj;
+    obj["amount"] = amount;
+    obj["toaccountnumber"] = toAccNum;
+    QJsonDocument doc(obj);
+    QByteArray data = doc.toJson();
+    post("http://192.168.1.14:22/Transfer", data);
+}
+
 
 
 void Client::createUser(QString userData)
@@ -168,7 +212,6 @@ void Client::deleteUser(QString accountNumber)
 
 void Client::post(QString path, QByteArray data)
 {
-
     QString request = "POST "+ path + "HTTP/1.1\r\n";
     request += "Host: 192.168.1.14:22\r\n";
     request += "Content-Type: application/application/json\r\n";
@@ -177,7 +220,6 @@ void Client::post(QString path, QByteArray data)
     request += data;
 
     socket->write(request.toUtf8());
-
 
     socket->waitForReadyRead();
 }
@@ -221,5 +263,4 @@ void Client::deleteReq(QString path, QByteArray data)
 
     socket->write(request.toUtf8());
     socket->waitForReadyRead();
-
 }
