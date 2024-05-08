@@ -583,6 +583,43 @@
 			"path" : "/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginAdditionalTargetInfo.cmake"
 		},
 		{
+			"isExternal" : true,
+			"path" : "/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfigVersionImpl.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfig.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/home/alaasaeed/Qt/Tools/CMake/share/cmake-3.27/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentDependencies.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentTargets-relwithdebinfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentAdditionalTargetInfo.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentVersionlessTargets.cmake"
+		},
+		{
 			"isCMake" : true,
 			"isExternal" : true,
 			"path" : "/home/alaasaeed/Qt/Tools/CMake/share/cmake-3.27/Modules/GNUInstallDirs.cmake"

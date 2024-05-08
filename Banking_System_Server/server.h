@@ -12,6 +12,9 @@
 #include <QFile>
 #include <QJsonArray>
 #include  <QCoreApplication>
+#include <QThread>
+#include <QtConcurrent>
+#include <QMutex>
 
 class Server : public QObject
 {
@@ -23,14 +26,7 @@ protected:
 
 
 private slots:
-    void newConnection() {
-        QTcpSocket *socket = server.nextPendingConnection();
-        //QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
-        qDebug() << socket;
-        connect(socket, &QTcpSocket::readyRead, this, &Server::readRequest);
-        connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
-        connect(socket, &QTcpSocket::disconnected, this, [=]() { handleLogout(socket); });
-    }
+    void newConnection();
     bool handleLogin(QTcpSocket *socket, const QString username, const QString password, QJsonArray usersArray);
     void handleLogout(QTcpSocket *socket);
     bool isLoggedIn(QTcpSocket *socket);
@@ -44,7 +40,7 @@ private slots:
     void handleGetTransactionHisoryAdmin(QTcpSocket *socket, QString accountNum, int count);
     void handleTransfer(QTcpSocket *socket, QString toAcc, int amount);
     void getBankDB();
-    void createUser();
+    void createUser(QTcpSocket *socket,const QByteArray &requestData);
     void handleUpdateUser(QTcpSocket *socket,const QByteArray &requestData);
     void handleDeleteUser(QTcpSocket *socket,const QByteArray &requestData);
     void parseJSONFromRequest(const QByteArray &requestData, QJsonObject &jsonObject);
@@ -52,18 +48,9 @@ private slots:
 private:
     void handleGetRequest(QTcpSocket *socket, const QByteArray &requestData);
     void handlePostRequest(QTcpSocket *socket, const QByteArray &requestData);
-
-    void sendJsonResponse(QTcpSocket *clientSocket, const QJsonObject &jsonObject) {
-        QJsonDocument jsonResponse(jsonObject);
-        sendResponse(clientSocket, jsonResponse.toJson());
-    }
-
-    void sendResponse(QTcpSocket *clientSocket, const QByteArray &data) {
-        clientSocket->write(data);
-        clientSocket->flush();
-        clientSocket->waitForBytesWritten();
-        //clientSocket->disconnectFromHost();
-    }
+    void sendJsonResponse(QTcpSocket *clientSocket, const QJsonObject &jsonObject);
+    void sendResponse(QTcpSocket *clientSocket, const QByteArray &data);
+    void handleRequest(QTcpSocket *socket, const QByteArray &requestData);
 
 private:
     QTcpServer server;
@@ -71,6 +58,7 @@ private:
     QMap<QTcpSocket*, QString> loggedInClients_Names; // Map of logged-in clients with their usernames
     QJsonObject userDatabase; // JSON object representing the user database
     QJsonDocument JsonDoc;
+    QMutex mutex;
 
     void handleLogin(QTcpSocket *socket, const QString &username, const QString &password);
 };

@@ -7,7 +7,7 @@ Server::Server(QObject *parent) : QObject(parent)
         qDebug() << "Error:" << server.errorString();
         qApp->quit();
     } else {
-        qDebug() << "Server started. Listening on port 22...";
+        qDebug() << "Server started. Listening on port 22....";
     }
 
     QFile file("/home/alaasaeed/test/users.json");
@@ -31,6 +31,29 @@ Server::Server(QObject *parent) : QObject(parent)
 
 }
 
+void Server::newConnection()
+{
+    QTcpSocket *socket = server.nextPendingConnection();
+    //QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
+    qDebug() << socket;
+    connect(socket, &QTcpSocket::readyRead, this, &Server::readRequest);
+    connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
+    connect(socket, &QTcpSocket::disconnected, this, [=]() { handleLogout(socket); });
+}
+
+void Server::sendJsonResponse(QTcpSocket *clientSocket, const QJsonObject &jsonObject)
+{
+    QJsonDocument jsonResponse(jsonObject);
+    sendResponse(clientSocket, jsonResponse.toJson());
+}
+
+void Server::sendResponse(QTcpSocket *clientSocket, const QByteArray &data) {
+    clientSocket->write(data);
+    clientSocket->flush();
+    clientSocket->waitForBytesWritten();
+    //clientSocket->disconnectFromHost();
+}
+
 void Server::readRequest()
 {
 
@@ -43,47 +66,59 @@ void Server::readRequest()
         QByteArray requestData = socket->readAll();
         qDebug() << "Received request:" << requestData;
 
-        // Parse the request
-        QString requestString(requestData);
-        if (requestString.startsWith("POST")) {
-            handlePostRequest(socket, requestData);
-        }
-        else if(requestString.startsWith("GET"))
+        // Start a new thread to handle the request
+        QtConcurrent::run([this, socket, requestData]() {
+            handleRequest(socket, requestData);
+        });
+
+}
+
+void Server::handleRequest(QTcpSocket *socket, const QByteArray &requestData) {
+
+    mutex.lock();
+
+    // Parse the request
+    QString requestString(requestData);
+    if (requestString.startsWith("POST")) {
+        handlePostRequest(socket, requestData);
+    }
+    else if(requestString.startsWith("GET"))
+    {
+        handleGetRequest(socket,requestData);
+    }
+    else if(requestString.startsWith("PUT"))
+    {
+        if(requestString.contains("updateUser"))
         {
-            handleGetRequest(socket,requestData);
-        }
-        else if(requestString.startsWith("PUT"))
-        {
-            if(requestString.contains("updateUser"))
+            if(loggedInClients_Roles.find(socket).value() == "admin")
             {
-                if(loggedInClients_Roles.find(socket).value() == "admin")
-                {
-                    handleUpdateUser(socket,requestData);
-                }
-                else{
-                    QByteArray responseData = "Not Authorized";
-                    sendResponse(socket, responseData);
-                }
+                handleUpdateUser(socket,requestData);
+            }
+            else{
+                QByteArray responseData = "Not Authorized";
+                sendResponse(socket, responseData);
             }
         }
-        else if(requestString.startsWith("DELETE"))
+    }
+    else if(requestString.startsWith("DELETE"))
+    {
+        if(requestString.contains("deleteUser"))
         {
-            if(requestString.contains("deleteUser"))
+            if(loggedInClients_Roles.find(socket).value() == "admin")
             {
-                if(loggedInClients_Roles.find(socket).value() == "admin")
-                {
-                    handleDeleteUser(socket,requestData);
-                }
-                else{
-                    QByteArray responseData = "Not Authorized";
-                    sendResponse(socket, responseData);
-                }
+                handleDeleteUser(socket,requestData);
+            }
+            else{
+                QByteArray responseData = "Not Authorized";
+                sendResponse(socket, responseData);
             }
         }
-        else {
-            qDebug() << "Unsupported request";
-            // Respond with an error message or HTTP 400 Bad Request
-        }
+    }
+    else {
+        qDebug() << "Unsupported request";
+        // Respond with an error message or HTTP 400 Bad Request
+    }
+    mutex.unlock();
 
 }
 
@@ -107,33 +142,7 @@ void Server::handlePostRequest(QTcpSocket *socket, const QByteArray &requestData
             if (requestData.contains("createUser")) {
                 if(loggedInClients_Roles.find(socket).value() == "admin")
                 {
-                    QJsonArray Userstable = userDatabase.value("users").toArray();
-                    QJsonArray Accountstable = userDatabase.value("accounts").toArray();
-                    foreach (const QJsonValue &value, Userstable) {
-
-                        if (value.toObject().value("username") == jsonObject["username"] ||
-                            value.toObject().value("accountnumber") == jsonObject["accountnumber"]) {
-
-                            QByteArray responseData = "Incoming data already exists in the document.";
-                            sendResponse(socket, responseData);
-                            return;
-                        }
-                    }
-
-                    // If the incoming data does not already exist, add it to the specific table
-                    QJsonObject  account;
-                    account.insert("accountnumber",jsonObject.value("accountnumber"));
-                    account.insert("balance",0);
-                    Userstable.append(jsonObject);
-                    userDatabase["users"] = Userstable;
-                    Accountstable.append(account);
-                    userDatabase["accounts"] = Accountstable;
-
-                    // Save the updated JSON document back to the file
-                    saveUserDatabaseToFile();
-
-                    QByteArray responseData = "User Added!";
-                    sendResponse(socket, responseData);
+                    createUser(socket,requestData);
                 }
 
                 else{
@@ -272,6 +281,44 @@ void Server::handleGetRequest(QTcpSocket *socket, const QByteArray &requestData)
     }
 }
 
+
+void Server::createUser(QTcpSocket *socket,const QByteArray &requestData)
+{
+    QJsonObject jsonObject;
+    parseJSONFromRequest(requestData, jsonObject);
+
+    if (jsonObject.isEmpty()) {
+        // Handle empty or invalid JSON
+        return;
+    }
+    QJsonArray Userstable = userDatabase.value("users").toArray();
+    QJsonArray Accountstable = userDatabase.value("accounts").toArray();
+    foreach (const QJsonValue &value, Userstable) {
+
+        if (value.toObject().value("username") == jsonObject["username"] ||
+            value.toObject().value("accountnumber") == jsonObject["accountnumber"]) {
+
+            QByteArray responseData = "Incoming data already exists in the document.";
+            sendResponse(socket, responseData);
+            return;
+        }
+    }
+
+    // If the incoming data does not already exist, add it to the specific table
+    QJsonObject  account;
+    account.insert("accountnumber",jsonObject.value("accountnumber"));
+    account.insert("balance",0);
+    Userstable.append(jsonObject);
+    userDatabase["users"] = Userstable;
+    Accountstable.append(account);
+    userDatabase["accounts"] = Accountstable;
+
+    // Save the updated JSON document back to the file
+    saveUserDatabaseToFile();
+
+    QByteArray responseData = "User Added!";
+    sendResponse(socket, responseData);
+}
 
 void Server::handleDeleteUser(QTcpSocket *socket, const QByteArray &requestData) {
     QJsonObject jsonObject;
