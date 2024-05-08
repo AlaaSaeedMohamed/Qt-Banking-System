@@ -26,15 +26,6 @@ void Client::connectToHost(QString hostname, quint16 port)
 void Client::Connected()
 {
     qInfo() << "Connected to Host";
-
-    QByteArray data;
-
-    data.append("GET / HTTP/1.1\r\n");
-    data.append("Host: mshmae.pythonanywhere.com\r\n");
-    // data.append("Connection: Close \r\n");
-    data.append("\r\n");
-
-    // socket->write(data);
 }
 
 void Client::disconnected()
@@ -66,9 +57,20 @@ void Client::disconnect()
 
 void Client::readyRead()
 {
+    QByteArray data = socket->readAll();
+    QTextStream in(&data);
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
 
-    qInfo() << "Reading Data from Server";
-    qInfo() << "Data: " << socket->readAll();
+        // Remove newline and carriage return characters
+        line.remove("\n");
+        line.remove("\r");
+
+        // Display the line
+        qDebug().noquote() << line;
+    }
+    // qInfo() << "Data: " << socket->readAll();
 }
 
 

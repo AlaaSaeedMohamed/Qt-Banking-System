@@ -8,12 +8,10 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QEventLoop>
-#include <QMutex>
 class Client : public QObject
 {
     Q_OBJECT
 public:
-    QString role = "";
     Client();
     ~Client();
 
@@ -49,7 +47,6 @@ private slots:
 
 private:
     QTcpSocket *socket;
-    QMutex m;
 };
 
 #endif // CLIENT_H

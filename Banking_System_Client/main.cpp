@@ -16,12 +16,7 @@ int main(int argc, char *argv[]) {
 
     QTextStream in(stdin);
 
-    // QThread thread;
-
     Client client;
-
-    // client.moveToThread(&thread);
-    // thread.start();
 
     client.connectToHost("192.168.1.14",22);
 
@@ -142,101 +137,5 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // thread.wait();
-
-    // Split the line into words
-    // QStringList words = line.split(" ");
-
-    // out << "Words in the line: " << "\n";
-    // for (const QString &word : words) {
-    //     // Skip empty strings
-    //     if (!word.isEmpty())
-    //         out << word << "\n";
-    // }
-    // out.flush();
-    // Client client;
-    // Client client2;
-
-    // QThread thread1;
-    // QThread thread2;
-
-    // client.moveToThread(&thread1);
-    // client2.moveToThread(&thread2);
-
-
-    // // client2.connectToHost("192.168.1.14",22);
-
-    // QObject::connect(&thread1, &QThread::started, [&]() {
-    //     client.connectToHost("192.168.1.14",22);
-    //     client.login("user2", "password12");
-    //     // client.transferAmount("A005", 100);
-    // });
-
-    // QObject::connect(&thread2, &QThread::started, [&]() {
-    //     client2.connectToHost("192.168.1.14",22);
-    //     client2.login("user1", "password123");
-    //     // client2.getTransactionHistory(10);
-    // });
-
-
-    // // Start the thread
-    // thread1.start();
-    // // Start the thread
-    // thread2.start();
-
-    // // Wait for the thread to finish
-    // thread1.wait();
-    // thread2.wait();
-    // client.login("user2", "password12");
-    // client.transferAmount("A005", 100);
-    // client2.login("user2", "password12");
-
-    // client2.getTransactionHistory(10);
-    // client.getTransactionHistory_Admin("A005", 4);
-
-    //client.getAccountNumber("http://192.168.1.14:22/accountNumber");
-    //client.getAccountNumber_Admin("http://192.168.1.14:22/accountNumberAdmin", "user2");
-
-    // QObject::connect(&client, &Client::loginCompleted, [&client]() {
-    //     // After the POST request is completed, send the GET request
-    //     // client.getAccountNumber();
-    //     // client.getAccountNumber_Admin("user2");
-    //     client.viewBankDatabase();
-    // });
-
-    // QString str = R"({"ID":"001","account_number":"A001","password":"password123","role":"admin","username":"user1"})";
-
-    // QJsonParseError error;
-    // QJsonDocument doc = QJsonDocument::fromJson(str.toUtf8(), &error);
-    // if (doc.isNull()) {
-    //     qDebug() << "Failed to parse JSON:" << error.errorString();
-    //     return -1;
-    // }
-
-    // QJsonObject jsonObject = doc.object();
-
-    // qDebug() << jsonObject;
-
-
-    //client.getAccountNumber_Admin("user1");
-
-    // QString Data = "{\n";
-    // Data.append("\t\"username\": \"user4\",\n");
-    // Data.append("\t\"password\": \"password12\",\n");
-    // Data.append("\t\"role\": \"user\",\n");
-    // Data.append("\t\"accountnumber\": \"A005\"\n");
-    // Data.append("}");
-
-    // client.updateUser("A002", Data);
-    // client.deleteUser("A004");
-
-    // // client.viewBankDatabase();
-
-    // client.makeTransaction(-200);
-
-
-    //  client.createUser(Data);
-    // client.getAccountBalance();
-    // client.getAccountBalance_Admin("A003");
     return a.exec();
 }
