@@ -1,0 +1,122 @@
+{
+    "accounts": [
+        {
+            "accountnumber": "A001",
+            "balance": 1320
+        },
+        {
+            "accountnumber": "A002",
+            "balance": 205
+        },
+        {
+            "accountnumber": "A005",
+            "balance": 332
+        },
+        {
+            "accountnumber": "A001",
+            "balance": 30
+        },
+        {
+            "accountnumber": "A006",
+            "balance": 70
+        }
+    ],
+    "transactions": [
+        {
+            "accountnumber": "A001",
+            "amount": "+100",
+            "date": "2024-04-19"
+        },
+        {
+            "accountnumber": "A002",
+            "amount": "-50",
+            "date": "2024-04-18"
+        },
+        {
+            "accountnumber": "A005",
+            "amount": "+50",
+            "date": "2024-04-17"
+        },
+        {
+            "accountnumber": "A005",
+            "amount": "-50",
+            "date": "2024-04-18"
+        },
+        {
+            "accountnumber": "A002",
+            "amount": 100,
+            "date": "2024-05-06"
+        },
+        {
+            "accountnumber": "A005",
+            "amount": 100,
+            "date": "2024-05-06"
+        },
+        {
+            "accountnumber": "A005",
+            "amount": -200,
+            "date": "2024-05-06"
+        },
+        {
+            "accountnumber": "A005",
+            "amount": 100,
+            "date": "2024-05-06"
+        },
+        {
+            "accountnumber": "A002",
+            "amount": 350,
+            "date": "2024-05-08"
+        },
+        {
+            "accountnumber": "A004",
+            "amount": 100,
+            "date": "2024-05-08"
+        },
+        {
+            "accountnumber": "A004",
+            "amount": -50,
+            "date": "2024-05-08"
+        },
+        {
+            "accountnumber": "A006",
+            "amount": 300,
+            "date": "2024-05-08"
+        },
+        {
+            "accountnumber": "A006",
+            "amount": -200,
+            "date": "2024-05-08"
+        }
+    ],
+    "users": [
+        {
+            "password": "password123",
+            "role": "admin",
+            "username": "user1"
+        },
+        {
+            "accountnumber": "A002",
+            "password": "password12",
+            "role": "user",
+            "username": "user2"
+        },
+        {
+            "accountnumber": "A005",
+            "password": "password12",
+            "role": "user",
+            "username": "user4"
+        },
+        {
+            "accountnumber": "A001",
+            "password": "pass",
+            "role": "user",
+            "username": "alaa"
+        },
+        {
+            "accountnumber": "A006",
+            "password": "passss",
+            "role": "user",
+            "username": "alaa3"
+        }
+    ]
+}
