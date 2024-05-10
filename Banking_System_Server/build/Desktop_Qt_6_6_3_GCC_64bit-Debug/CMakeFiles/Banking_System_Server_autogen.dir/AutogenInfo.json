@@ -141,15 +141,6 @@
 		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginTargets.cmake",
 		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginTargets-relwithdebinfo.cmake",
 		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginAdditionalTargetInfo.cmake",
-		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfigVersion.cmake",
-		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfigVersionImpl.cmake",
-		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfig.cmake",
-		"/home/alaasaeed/Qt/Tools/CMake/share/cmake-3.27/Modules/CMakeFindDependencyMacro.cmake",
-		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentDependencies.cmake",
-		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentTargets.cmake",
-		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentTargets-relwithdebinfo.cmake",
-		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentAdditionalTargetInfo.cmake",
-		"/home/alaasaeed/Qt/6.6.3/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentVersionlessTargets.cmake",
 		"/home/alaasaeed/Qt/Tools/CMake/share/cmake-3.27/Modules/GNUInstallDirs.cmake"
 	],
 	"CMAKE_SOURCE_DIR" : "/home/alaasaeed/Banking_System/Banking_System_Server",
@@ -162,12 +153,18 @@
 			"MU",
 			"EWIEGA46WW/moc_server.cpp",
 			null
+		],
+		[
+			"/home/alaasaeed/Banking_System/Banking_System_Server/thread.h",
+			"MU",
+			"EWIEGA46WW/moc_thread.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/include",
 	"MOC_COMPILATION_FILE" : "/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/mocs_compilation.cpp",
-	"MOC_DEFINITIONS" : [ "QT_CONCURRENT_LIB", "QT_CORE_LIB", "QT_NETWORK_LIB" ],
+	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_NETWORK_LIB" ],
 	"MOC_DEPEND_FILTERS" : 
 	[
 		[
@@ -181,7 +178,6 @@
 		"/home/alaasaeed/Qt/6.6.3/gcc_64/include",
 		"/home/alaasaeed/Qt/6.6.3/gcc_64/mkspecs/linux-g++",
 		"/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork",
-		"/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtConcurrent",
 		"/usr/include/c++/11",
 		"/usr/include/x86_64-linux-gnu/c++/11",
 		"/usr/include/c++/11/backward",
@@ -229,6 +225,11 @@
 		],
 		[
 			"/home/alaasaeed/Banking_System/Banking_System_Server/server.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/alaasaeed/Banking_System/Banking_System_Server/thread.cpp",
 			"MU",
 			null
 		]

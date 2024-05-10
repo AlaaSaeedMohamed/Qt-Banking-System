@@ -1,13 +1,13 @@
 #include "server.h"
+#include "thread.h"
 
-Server::Server(QObject *parent) : QObject(parent)
-{
-    connect(&server, &QTcpServer::newConnection, this, &Server::newConnection);
-    if (!server.listen(QHostAddress::Any, 22)) {
-        qDebug() << "Error:" << server.errorString();
-        qApp->quit();
-    } else {
-        qDebug() << "Server started. Listening on port 22....";
+Server::Server(QObject *parent = nullptr) : QTcpServer(parent){
+
+    QString add = "192.168.1.14";
+    QHostAddress host(add);
+    if(listen(host, 22))
+    {
+        qDebug() << "listening";
     }
 
     QFile file("/home/alaasaeed/test/users.json");
@@ -27,18 +27,26 @@ Server::Server(QObject *parent) : QObject(parent)
 
     userDatabase = jsonDoc.object();
     JsonDoc = jsonDoc;
-    //qDebug() << userDatabase;
 
 }
 
-void Server::newConnection()
-{
-    QTcpSocket *socket = server.nextPendingConnection();
-    //QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
-    qDebug() << socket;
-    connect(socket, &QTcpSocket::readyRead, this, &Server::readRequest);
-    connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
-    connect(socket, &QTcpSocket::disconnected, this, [=]() { handleLogout(socket); });
+
+void Server::incomingConnection(qintptr socketDescriptor) {
+
+    Thread* worker = new Thread(socketDescriptor);
+    QThread* thread = new QThread;
+
+    worker->moveToThread(thread);
+
+    QTcpSocket *clientSocket = new QTcpSocket(this);
+    clientSocket->setSocketDescriptor(socketDescriptor);
+    qDebug()  <<  clientSocket;
+    connect(clientSocket, &QTcpSocket::readyRead, this, &Server::readRequest);
+    connect(clientSocket, &QTcpSocket::disconnected, clientSocket, &QTcpSocket::deleteLater);
+    connect(clientSocket, &QTcpSocket::disconnected, this, [=]() { handleLogout(clientSocket); });
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+    thread->start();
 }
 
 void Server::sendJsonResponse(QTcpSocket *clientSocket, const QJsonObject &jsonObject)
@@ -66,10 +74,7 @@ void Server::readRequest()
         QByteArray requestData = socket->readAll();
         qDebug() << "Received request:" << requestData;
 
-        // Start a new thread to handle the request
-        QtConcurrent::run([this, socket, requestData]() {
-            handleRequest(socket, requestData);
-        });
+        handleRequest(socket, requestData);
 
 }
 

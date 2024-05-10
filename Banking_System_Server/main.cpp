@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     // Create an instance of the server
-    Server server;
+    Server server(&a);
 
     return a.exec();
 }

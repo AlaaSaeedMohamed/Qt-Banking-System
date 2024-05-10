@@ -11,23 +11,21 @@
 #include <QJsonValue>
 #include <QFile>
 #include <QJsonArray>
-#include  <QCoreApplication>
+#include <QCoreApplication>
 #include <QThread>
-#include <QtConcurrent>
 #include <QMutex>
+class Server : public QTcpServer
 
-class Server : public QObject
 {
-    //Q_OBJECT
+    Q_OBJECT
 public:
-    explicit Server(QObject *parent = nullptr);
+    Server(QObject *parent);
 
 protected:
+    void incomingConnection(qintptr handle) override;
 
 
 private slots:
-    void newConnection();
-    bool handleLogin(QTcpSocket *socket, const QString username, const QString password, QJsonArray usersArray);
     void handleLogout(QTcpSocket *socket);
     bool isLoggedIn(QTcpSocket *socket);
     void readRequest();
@@ -39,12 +37,13 @@ private slots:
     void handleMakeTransaction(QTcpSocket *socket, int amount);
     void handleGetTransactionHisoryAdmin(QTcpSocket *socket, QString accountNum, int count);
     void handleTransfer(QTcpSocket *socket, QString toAcc, int amount);
-    void getBankDB();
     void createUser(QTcpSocket *socket,const QByteArray &requestData);
     void handleUpdateUser(QTcpSocket *socket,const QByteArray &requestData);
     void handleDeleteUser(QTcpSocket *socket,const QByteArray &requestData);
     void parseJSONFromRequest(const QByteArray &requestData, QJsonObject &jsonObject);
     void saveUserDatabaseToFile();
+    void handleLogin(QTcpSocket *socket, const QString &username, const QString &password);
+
 private:
     void handleGetRequest(QTcpSocket *socket, const QByteArray &requestData);
     void handlePostRequest(QTcpSocket *socket, const QByteArray &requestData);
@@ -52,7 +51,6 @@ private:
     void sendResponse(QTcpSocket *clientSocket, const QByteArray &data);
     void handleRequest(QTcpSocket *socket, const QByteArray &requestData);
 
-private:
     QTcpServer server;
     QMap<QTcpSocket*, QString> loggedInClients_Roles; // Map of logged-in clients with their roles
     QMap<QTcpSocket*, QString> loggedInClients_Names; // Map of logged-in clients with their usernames
@@ -60,7 +58,6 @@ private:
     QJsonDocument JsonDoc;
     QMutex mutex;
 
-    void handleLogin(QTcpSocket *socket, const QString &username, const QString &password);
 };
 
 #endif // SERVER_H
