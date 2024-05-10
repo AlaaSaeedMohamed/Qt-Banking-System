@@ -3,13 +3,13 @@
 Client::Client() {
 
     socket = new QTcpSocket;
-    connect(socket,&QAbstractSocket::connected,this,&Client::Connected);
+    //connect(socket,&QAbstractSocket::connected,this,&Client::Connected);
     connect(socket,&QAbstractSocket::disconnected,this,&Client::disconnected);
-    connect(socket,&QAbstractSocket::hostFound,this,&Client::hostFound);
+    //connect(socket,&QAbstractSocket::hostFound,this,&Client::hostFound);
     connect(socket,&QAbstractSocket::errorOccurred,this,&Client::errorOccurred);
-    connect(socket,&QAbstractSocket::stateChanged,this,&Client::stateChanged);
+    //connect(socket,&QAbstractSocket::stateChanged,this,&Client::stateChanged);
     connect(socket, &QTcpSocket::readyRead, this, &Client::readyRead);
-
+    socket->connectToHost("192.168.1.14",22);
 }
 
 Client:: ~Client()
@@ -21,6 +21,7 @@ void Client::connectToHost(QString hostname, quint16 port)
     if(socket->isOpen())    disconnect();
     qInfo() << "Trying to connect to " << hostname << " on port " << port;
     socket->connectToHost(hostname, port);
+    socket->waitForConnected();
 }
 
 void Client::Connected()
@@ -41,7 +42,6 @@ void Client::errorOccurred(QAbstractSocket::SocketError socketError)
 void Client::hostFound()
 {
     qInfo() << "Server Host is Found";
-
 }
 
 void Client::stateChanged(QAbstractSocket::SocketState socketState)
@@ -78,6 +78,8 @@ void Client::get(QString path)
 {
     QString getRequest = "GET " + path + " HTTP/1.1\r\nHost: 192.168.1.14:22\r\n\r\n";
     socket->write(getRequest.toUtf8());
+    socket->waitForBytesWritten();
+
     socket->waitForReadyRead();
 
 }
@@ -222,6 +224,7 @@ void Client::post(QString path, QByteArray data)
     request += data;
 
     socket->write(request.toUtf8());
+    socket->waitForBytesWritten();
 
     socket->waitForReadyRead();
 }
@@ -250,6 +253,7 @@ void Client::put(QString path, QByteArray data)
     request += data;
 
     socket->write(request.toUtf8());
+    socket->waitForBytesWritten();
 
     socket->waitForReadyRead();
 }
@@ -264,5 +268,7 @@ void Client::deleteReq(QString path, QByteArray data)
     request += data;
 
     socket->write(request.toUtf8());
+    socket->waitForBytesWritten();
+
     socket->waitForReadyRead();
 }

@@ -3,7 +3,6 @@
 #include <QDebug>
 #include "client.h"
 #include <QThread>
-#include <iostream>
 #include <QTextStream>
 #include <QFile>
 using namespace std;
@@ -17,11 +16,11 @@ int main(int argc, char *argv[]) {
     QTextStream in(stdin);
 
     Client client;
-
-    client.connectToHost("192.168.1.14",22);
+    Client client2;
 
     qDebug() << "welcome to banking app, type 'help' to print the manual. ";
-
+    client.login("user1", "pass");
+    client2.login("user1", "pass");
     while(true)
     {
         qDebug() << "bank>> ";
@@ -39,33 +38,32 @@ int main(int argc, char *argv[]) {
         else if(command.contains("help") && numberOfArguments == 0)
         {
 
-                if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-                {
-                    qDebug() << "Failed to open the file.";
-                    return 1;
-                }
+            if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            {
+                qDebug() << "Failed to open the file.";
+                return 1;
+            }
 
-                // Read the file line by line
-                QTextStream in(&file);
-                while (!in.atEnd())
-                {
-                    QString line = in.readLine();
+            // Read the file line by line
+            QTextStream in(&file);
+            while (!in.atEnd())
+            {
+                QString line = in.readLine();
 
-                    // Remove newline and carriage return characters
-                    line.remove("\n");
-                    line.remove("\r");
+                // Remove newline and carriage return characters
+                line.remove("\n");
+                line.remove("\r");
 
-                    // Display the line
-                    qDebug().noquote() << line;
-                }
+                // Display the line
+                qDebug().noquote() << line;
+            }
 
-                // Close the file
-                file.close();
+            // Close the file
+            file.close();
 
         }
         else if(command.contains("accountnumber") && numberOfArguments == 1)
         {
-            qDebug() << "hhh";
             client.getAccountNumber_Admin(words.at(1));
         }
         else if(command.contains("accountnumber") && numberOfArguments == 0)
