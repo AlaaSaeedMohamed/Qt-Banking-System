@@ -4,7 +4,11 @@ Banking_System_Server_autogen/timestamp: \
 	/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/moc_predefs.h \
 	/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/3.27.7/CMakeCXXCompiler.cmake \
 	/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/3.27.7/CMakeSystem.cmake \
+	/home/alaasaeed/Banking_System/Banking_System_Server/databasehandler.cpp \
+	/home/alaasaeed/Banking_System/Banking_System_Server/databasehandler.h \
 	/home/alaasaeed/Banking_System/Banking_System_Server/main.cpp \
+	/home/alaasaeed/Banking_System/Banking_System_Server/requestHandler.cpp \
+	/home/alaasaeed/Banking_System/Banking_System_Server/requestHandler.h \
 	/home/alaasaeed/Banking_System/Banking_System_Server/server.cpp \
 	/home/alaasaeed/Banking_System/Banking_System_Server/server.h \
 	/home/alaasaeed/Banking_System/Banking_System_Server/thread.cpp \
@@ -12,6 +16,7 @@ Banking_System_Server_autogen/timestamp: \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QByteArray \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QCoreApplication \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QDebug \
+	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QEventLoop \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QFile \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QJsonArray \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QJsonDocument \
@@ -19,7 +24,9 @@ Banking_System_Server_autogen/timestamp: \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QJsonValue \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QMutex \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QObject \
+	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QRunnable \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QThread \
+	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QThreadPool \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/q20functional.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/q20memory.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/q20type_traits.h \
@@ -106,6 +113,7 @@ Banking_System_Server_autogen/timestamp: \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qprocessordetection.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qrefcount.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qregularexpression.h \
+	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qrunnable.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qscopedpointer.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qscopeguard.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qset.h \
@@ -136,6 +144,7 @@ Banking_System_Server_autogen/timestamp: \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtenvironmentvariables.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtextstream.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qthread.h \
+	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qthreadpool.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtmetamacros.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtnoop.h \
 	/home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtpreprocessorsupport.h \

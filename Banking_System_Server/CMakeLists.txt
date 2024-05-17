@@ -16,6 +16,8 @@ add_executable(Banking_System_Server
   main.cpp
   server.h server.cpp
   thread.h thread.cpp
+  requestHandler.h requestHandler.cpp
+  databasehandler.h databasehandler.cpp
 )
 target_link_libraries(Banking_System_Server Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Network)
 

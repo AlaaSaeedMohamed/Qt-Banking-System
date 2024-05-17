@@ -149,6 +149,18 @@
 	"HEADERS" : 
 	[
 		[
+			"/home/alaasaeed/Banking_System/Banking_System_Server/databasehandler.h",
+			"MU",
+			"EWIEGA46WW/moc_databasehandler.cpp",
+			null
+		],
+		[
+			"/home/alaasaeed/Banking_System/Banking_System_Server/requestHandler.h",
+			"MU",
+			"EWIEGA46WW/moc_requestHandler.cpp",
+			null
+		],
+		[
 			"/home/alaasaeed/Banking_System/Banking_System_Server/server.h",
 			"MU",
 			"EWIEGA46WW/moc_server.cpp",
@@ -219,7 +231,17 @@
 	"SOURCES" : 
 	[
 		[
+			"/home/alaasaeed/Banking_System/Banking_System_Server/databasehandler.cpp",
+			"MU",
+			null
+		],
+		[
 			"/home/alaasaeed/Banking_System/Banking_System_Server/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/alaasaeed/Banking_System/Banking_System_Server/requestHandler.cpp",
 			"MU",
 			null
 		],

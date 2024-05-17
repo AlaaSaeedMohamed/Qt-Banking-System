@@ -1,17 +1,9 @@
-/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/EWIEGA46WW/moc_server.cpp: /home/alaasaeed/Banking_System/Banking_System_Server/server.h \
+/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/EWIEGA46WW/moc_databasehandler.cpp: /home/alaasaeed/Banking_System/Banking_System_Server/databasehandler.h \
   /home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/moc_predefs.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QByteArray \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QCoreApplication \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QDebug \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QFile \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QJsonArray \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QJsonDocument \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QJsonObject \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QJsonValue \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QMutex \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QObject \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QThread \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QThreadPool \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/q20functional.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/q20memory.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/q20type_traits.h \
@@ -43,17 +35,11 @@
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qcontainerinfo.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qcontainertools_impl.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qcontiguouscache.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qcoreapplication.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qcoreapplication_platform.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qcoreevent.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qdarwinhelpers.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qdatastream.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qdatetime.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qdeadlinetimer.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qdebug.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qelapsedtimer.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qendian.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qeventloop.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qexceptionhandling.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qfile.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qfiledevice.h \
@@ -71,7 +57,6 @@
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qiodevicebase.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qiterable.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qiterator.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qjsonarray.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qjsondocument.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qjsonobject.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qjsonvalue.h \
@@ -85,9 +70,7 @@
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qmetacontainer.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qmetatype.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qminmax.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qmutex.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qnamespace.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qnativeinterface.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qnumeric.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qobject.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qobject_impl.h \
@@ -98,7 +81,6 @@
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qprocessordetection.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qrefcount.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qregularexpression.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qrunnable.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qscopedpointer.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qscopeguard.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qset.h \
@@ -128,13 +110,10 @@
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtdeprecationmarkers.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtenvironmentvariables.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtextstream.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qthread.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qthreadpool.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtmetamacros.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtnoop.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtpreprocessorsupport.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtresource.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtsan_impl.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qttranslation.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qttypetraits.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qtversion.h \
@@ -148,15 +127,6 @@
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qvarlengtharray.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qversiontagging.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qxptype_traits.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/QTcpServer \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/QTcpSocket \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qabstractsocket.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qhostaddress.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qtcpserver.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qtcpsocket.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qtnetwork-config.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qtnetworkexports.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qtnetworkglobal.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/assert.h \
@@ -172,7 +142,6 @@
   /usr/include/c++/11/bits/allocated_ptr.h \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/c++/11/bits/atomic_base.h \
-  /usr/include/c++/11/bits/atomic_futex.h \
   /usr/include/c++/11/bits/atomic_lockfree_defines.h \
   /usr/include/c++/11/bits/basic_ios.h \
   /usr/include/c++/11/bits/basic_ios.tcc \
@@ -231,8 +200,6 @@
   /usr/include/c++/11/bits/sstream.tcc \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/bits/std_function.h \
-  /usr/include/c++/11/bits/std_mutex.h \
-  /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/bits/stl_algo.h \
   /usr/include/c++/11/bits/stl_algobase.h \
   /usr/include/c++/11/bits/stl_bvector.h \
@@ -259,7 +226,6 @@
   /usr/include/c++/11/bits/string_view.tcc \
   /usr/include/c++/11/bits/stringfwd.h \
   /usr/include/c++/11/bits/uniform_int_dist.h \
-  /usr/include/c++/11/bits/unique_lock.h \
   /usr/include/c++/11/bits/unique_ptr.h \
   /usr/include/c++/11/bits/unordered_map.h \
   /usr/include/c++/11/bits/uses_allocator.h \
@@ -271,7 +237,6 @@
   /usr/include/c++/11/clocale \
   /usr/include/c++/11/cmath \
   /usr/include/c++/11/codecvt \
-  /usr/include/c++/11/condition_variable \
   /usr/include/c++/11/cstddef \
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/cstdio \
@@ -293,7 +258,6 @@
   /usr/include/c++/11/ext/type_traits.h \
   /usr/include/c++/11/filesystem \
   /usr/include/c++/11/functional \
-  /usr/include/c++/11/future \
   /usr/include/c++/11/initializer_list \
   /usr/include/c++/11/iomanip \
   /usr/include/c++/11/ios \
@@ -305,7 +269,6 @@
   /usr/include/c++/11/locale \
   /usr/include/c++/11/map \
   /usr/include/c++/11/memory \
-  /usr/include/c++/11/mutex \
   /usr/include/c++/11/new \
   /usr/include/c++/11/numeric \
   /usr/include/c++/11/optional \

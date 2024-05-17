@@ -81,6 +81,22 @@ build CMakeFiles/Banking_System_Server.dir/thread.cpp.o: CXX_COMPILER__Banking_S
   OBJECT_DIR = CMakeFiles/Banking_System_Server.dir
   OBJECT_FILE_DIR = CMakeFiles/Banking_System_Server.dir
 
+build CMakeFiles/Banking_System_Server.dir/requestHandler.cpp.o: CXX_COMPILER__Banking_System_Server_unscanned_Debug /home/alaasaeed/Banking_System/Banking_System_Server/requestHandler.cpp || cmake_object_order_depends_target_Banking_System_Server
+  DEFINES = -DQT_CORE_LIB -DQT_NETWORK_LIB
+  DEP_FILE = CMakeFiles/Banking_System_Server.dir/requestHandler.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/include -isystem /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore -isystem /home/alaasaeed/Qt/6.6.3/gcc_64/include -isystem /home/alaasaeed/Qt/6.6.3/gcc_64/mkspecs/linux-g++ -isystem /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork
+  OBJECT_DIR = CMakeFiles/Banking_System_Server.dir
+  OBJECT_FILE_DIR = CMakeFiles/Banking_System_Server.dir
+
+build CMakeFiles/Banking_System_Server.dir/databasehandler.cpp.o: CXX_COMPILER__Banking_System_Server_unscanned_Debug /home/alaasaeed/Banking_System/Banking_System_Server/databasehandler.cpp || cmake_object_order_depends_target_Banking_System_Server
+  DEFINES = -DQT_CORE_LIB -DQT_NETWORK_LIB
+  DEP_FILE = CMakeFiles/Banking_System_Server.dir/databasehandler.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/include -isystem /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore -isystem /home/alaasaeed/Qt/6.6.3/gcc_64/include -isystem /home/alaasaeed/Qt/6.6.3/gcc_64/mkspecs/linux-g++ -isystem /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork
+  OBJECT_DIR = CMakeFiles/Banking_System_Server.dir
+  OBJECT_FILE_DIR = CMakeFiles/Banking_System_Server.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Banking_System_Server
@@ -89,7 +105,7 @@ build CMakeFiles/Banking_System_Server.dir/thread.cpp.o: CXX_COMPILER__Banking_S
 #############################################
 # Link the executable Banking_System_Server
 
-build Banking_System_Server: CXX_EXECUTABLE_LINKER__Banking_System_Server_Debug CMakeFiles/Banking_System_Server.dir/Banking_System_Server_autogen/mocs_compilation.cpp.o CMakeFiles/Banking_System_Server.dir/main.cpp.o CMakeFiles/Banking_System_Server.dir/server.cpp.o CMakeFiles/Banking_System_Server.dir/thread.cpp.o | /home/alaasaeed/Qt/6.6.3/gcc_64/lib/libQt6Network.so.6.6.3 /home/alaasaeed/Qt/6.6.3/gcc_64/lib/libQt6Core.so.6.6.3 || Banking_System_Server_autogen Banking_System_Server_autogen_timestamp_deps
+build Banking_System_Server: CXX_EXECUTABLE_LINKER__Banking_System_Server_Debug CMakeFiles/Banking_System_Server.dir/Banking_System_Server_autogen/mocs_compilation.cpp.o CMakeFiles/Banking_System_Server.dir/main.cpp.o CMakeFiles/Banking_System_Server.dir/server.cpp.o CMakeFiles/Banking_System_Server.dir/thread.cpp.o CMakeFiles/Banking_System_Server.dir/requestHandler.cpp.o CMakeFiles/Banking_System_Server.dir/databasehandler.cpp.o | /home/alaasaeed/Qt/6.6.3/gcc_64/lib/libQt6Network.so.6.6.3 /home/alaasaeed/Qt/6.6.3/gcc_64/lib/libQt6Core.so.6.6.3 || Banking_System_Server_autogen Banking_System_Server_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g
   LINK_LIBRARIES = -Wl,-rpath,/home/alaasaeed/Qt/6.6.3/gcc_64/lib:  /home/alaasaeed/Qt/6.6.3/gcc_64/lib/libQt6Network.so.6.6.3  /home/alaasaeed/Qt/6.6.3/gcc_64/lib/libQt6Core.so.6.6.3
   OBJECT_DIR = CMakeFiles/Banking_System_Server.dir

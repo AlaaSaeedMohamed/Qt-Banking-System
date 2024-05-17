@@ -1,4 +1,4 @@
-/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/EWIEGA46WW/moc_server.cpp: /home/alaasaeed/Banking_System/Banking_System_Server/server.h \
+/home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/EWIEGA46WW/moc_handler.cpp: /home/alaasaeed/Banking_System/Banking_System_Server/handler.h \
   /home/alaasaeed/Banking_System/Banking_System_Server/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/Banking_System_Server_autogen/moc_predefs.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QByteArray \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/QCoreApplication \
@@ -148,11 +148,9 @@
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qvarlengtharray.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qversiontagging.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtCore/qxptype_traits.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/QTcpServer \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/QTcpSocket \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qabstractsocket.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qhostaddress.h \
-  /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qtcpserver.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qtcpsocket.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qtnetwork-config.h \
   /home/alaasaeed/Qt/6.6.3/gcc_64/include/QtNetwork/qtnetworkexports.h \

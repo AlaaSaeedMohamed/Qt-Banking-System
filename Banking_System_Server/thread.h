@@ -4,15 +4,28 @@
 #include <QObject>
 #include <QTcpSocket>
 
-class Thread : public QObject {
+#include  <QRunnable>
+#include <QEventLoop>
+#include  "requestHandler.h"
+
+class Thread : public QObject, public QRunnable {
     Q_OBJECT
+
 public:
-    explicit Thread(qintptr socketDescriptor, QObject *parent = nullptr)
-        : QObject(parent), socketDescriptor(socketDescriptor) {}
+    explicit Thread(QMutex *mutex, qintptr socketDescriptor, QObject *parent = nullptr);
+    ~Thread();
+
+    void run() override;
+
+    void readyRead();
+
 
 private:
     qintptr socketDescriptor;
-
+    QTcpSocket *socket;
+    Handler *handler;
 };
+
+
 
 #endif // THREAD_H

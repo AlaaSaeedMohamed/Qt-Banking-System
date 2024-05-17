@@ -1,12 +1,12 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'server.h'
+** Meta object code from reading C++ file 'databasehandler.h'
 **
 ** Created by: The Qt Meta Object Compiler version 68 (Qt 6.6.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../../server.h"
+#include "../../../../databasehandler.h"
 #include <QtCore/qmetatype.h>
 
 #if __has_include(<QtCore/qtmochelpers.h>)
@@ -19,7 +19,7 @@ QT_BEGIN_MOC_NAMESPACE
 #include <memory>
 
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'server.h' doesn't include <QObject>."
+#error "The header file 'databasehandler.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 68
 #error "This file was generated using the moc from 6.6.3. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -36,28 +36,28 @@ QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
 
 #ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSServerENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSServerENDCLASS = QtMocHelpers::stringData(
-    "Server"
+struct qt_meta_stringdata_CLASSdatabaseHandlerENDCLASS_t {};
+constexpr auto qt_meta_stringdata_CLASSdatabaseHandlerENDCLASS = QtMocHelpers::stringData(
+    "databaseHandler"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
-struct qt_meta_stringdata_CLASSServerENDCLASS_t {
+struct qt_meta_stringdata_CLASSdatabaseHandlerENDCLASS_t {
     uint offsetsAndSizes[2];
-    char stringdata0[7];
+    char stringdata0[16];
 };
 #define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CLASSServerENDCLASS_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CLASSServerENDCLASS_t qt_meta_stringdata_CLASSServerENDCLASS = {
+    uint(sizeof(qt_meta_stringdata_CLASSdatabaseHandlerENDCLASS_t::offsetsAndSizes) + ofs), len 
+Q_CONSTINIT static const qt_meta_stringdata_CLASSdatabaseHandlerENDCLASS_t qt_meta_stringdata_CLASSdatabaseHandlerENDCLASS = {
     {
-        QT_MOC_LITERAL(0, 6)   // "Server"
+        QT_MOC_LITERAL(0, 15)   // "databaseHandler"
     },
-    "Server"
+    "databaseHandler"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSServerENDCLASS[] = {
+Q_CONSTINIT static const uint qt_meta_data_CLASSdatabaseHandlerENDCLASS[] = {
 
  // content:
       12,       // revision
@@ -73,20 +73,20 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSServerENDCLASS[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject Server::staticMetaObject = { {
-    QMetaObject::SuperData::link<QTcpServer::staticMetaObject>(),
-    qt_meta_stringdata_CLASSServerENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSServerENDCLASS,
+Q_CONSTINIT const QMetaObject databaseHandler::staticMetaObject = { {
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
+    qt_meta_stringdata_CLASSdatabaseHandlerENDCLASS.offsetsAndSizes,
+    qt_meta_data_CLASSdatabaseHandlerENDCLASS,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSServerENDCLASS_t,
+    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSdatabaseHandlerENDCLASS_t,
         // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<Server, std::true_type>
+        QtPrivate::TypeAndForceComplete<databaseHandler, std::true_type>
     >,
     nullptr
 } };
 
-void Server::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void databaseHandler::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     (void)_o;
     (void)_id;
@@ -94,22 +94,22 @@ void Server::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
     (void)_a;
 }
 
-const QMetaObject *Server::metaObject() const
+const QMetaObject *databaseHandler::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Server::qt_metacast(const char *_clname)
+void *databaseHandler::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSServerENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_CLASSdatabaseHandlerENDCLASS.stringdata0))
         return static_cast<void*>(this);
-    return QTcpServer::qt_metacast(_clname);
+    return QObject::qt_metacast(_clname);
 }
 
-int Server::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int databaseHandler::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QTcpServer::qt_metacall(_c, _id, _a);
+    _id = QObject::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP
