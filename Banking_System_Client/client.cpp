@@ -243,6 +243,11 @@ void Client::login(QString username, QString password)
 
 }
 
+void Client::logout()
+{
+    get("http://192.168.1.14:22/Logout");
+}
+
 void Client::put(QString path, QByteArray data)
 {
     QString request = "PUT "+ path + "HTTP/1.1\r\n";

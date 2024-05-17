@@ -24,6 +24,7 @@ public slots:
     void put(QString path, QByteArray data);
     void deleteReq(QString path, QByteArray data);
     void login(QString username, QString password);
+    void logout();
     void getAccountNumber();
     void getAccountBalance();
     void getTransactionHistory(int count);

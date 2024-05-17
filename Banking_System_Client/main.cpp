@@ -16,11 +16,10 @@ int main(int argc, char *argv[]) {
     QTextStream in(stdin);
 
     Client client;
-    Client client2;
 
     qDebug() << "welcome to banking app, type 'help' to print the manual. ";
-    client.login("user1", "pass");
-    client2.login("user1", "pass");
+    //client.login("user1", "pass");
+    //client2.login("user1", "pass");
     while(true)
     {
         qDebug() << "bank>> ";
@@ -130,10 +129,19 @@ int main(int argc, char *argv[]) {
         {
             client.transferAmount(words.at(1), words.at(2).toInt());
         }
+        else if(command.contains("logout") && numberOfArguments == 0)
+        {
+            client.logout();
+        }
+        else if(command.contains("exit") && numberOfArguments == 0)
+        {
+            client.logout();
+            break;
+        }
         else{
             qDebug() << "invalid command, type 'help' to print the manual";
         }
     }
-
+    QCoreApplication::quit();
     return a.exec();
 }
